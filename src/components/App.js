@@ -1,18 +1,25 @@
-import React, { useState } from "react";
-import ShoppingList from "./ShoppingList";
-import Header from "./Header";
+// src/components/App.js
+import React, { useState, useEffect } from 'react';
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  function handleDarkModeClick() {
-    setIsDarkMode((isDarkMode) => !isDarkMode);
-  }
+  useEffect(() => {
+    // Simulate loading
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div className={"App " + (isDarkMode ? "dark" : "light")}>
-      <Header isDarkMode={isDarkMode} onDarkModeClick={handleDarkModeClick} />
-      <ShoppingList />
+    <div data-testid="app-container">
+      <h1>Quiz App</h1>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <button>View Questions</button>
+      )}
     </div>
   );
 }
